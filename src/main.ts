@@ -1,6 +1,7 @@
-import "../libraries/melchior";
+import { init } from "../framework";
+import { div } from "../framework/element";
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <div>
-  </div>
-`;
+const firstName = "Federico";
+const lastName = "Baldini";
+
+init("#app", div`Hello ${firstName} ${lastName}`);
