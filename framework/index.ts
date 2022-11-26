@@ -1,15 +1,17 @@
+import { VNode } from "snabbdom";
+import * as snabbdom from "snabbdom";
+
 type DOMElement = {
   type: string;
-  template: string;
+  template: VNode;
 };
 
-export const init = (selector: string, component: DOMElement) => {
-  const app = document.querySelector(selector);
-  const newElement = document.createElement(component.type);
-  const newTextContent = document.createTextNode(component.template);
+// Snabbdom can now manage each dom operation for me.
+const patch = snabbdom.init([]);
 
-  newElement.append(newTextContent);
+export const init = (selector: string, component: DOMElement) => {
+  const app: Element | null = document.querySelector(selector);
   if (app) {
-    app.append(newElement);
+    patch(app, component.template);
   }
 };
