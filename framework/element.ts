@@ -1,6 +1,9 @@
+// h is commonly used to define virtual nodes. The h means hyperscript.
+import { h, VNode } from "snabbdom";
+
 type DOMElement = {
   type: string;
-  template: string;
+  template: VNode;
 };
 
 /**
@@ -19,17 +22,26 @@ type DOMElement = {
  *
  * "args" are: [ 'Federico', 'Baldini' ]
  *
+ * ___
+ *
+ * Added a VDOM in the framework so that it will apply DOM modifications only if necessary.
+ *
+ * The choosen VDOM is snabbdom: https://github.com/snabbdom/snabbdom
  * @param tagName
  * @returns DOMElement
  */
 const createElement =
   (tagName: string) =>
   (strings: TemplateStringsArray, ...args: Array<String>): DOMElement => ({
-    type: tagName,
-    template: strings.reduce(
-      (accumulator, currentString, index) =>
-        accumulator + currentString + (args[index] || ""),
-      ""
+    type: "element",
+    template: h(
+      tagName,
+      {},
+      strings.reduce(
+        (accumulator, currentString, index) =>
+          accumulator + currentString + (args[index] || ""),
+        ""
+      )
     ),
   });
 
