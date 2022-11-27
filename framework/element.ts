@@ -6,6 +6,23 @@ type DOMElement = {
   template: VNode;
 };
 
+// Extract initial value with a template key, some other will appear next ;)
+const initialState: { template: string } = {
+  template: "",
+};
+
+// Extract this outside the createElement function
+const createReducer =
+  (args: Array<String>) =>
+  (
+    accumulator: { template: string },
+    currentString: string,
+    index: number
+  ) => ({
+    ...accumulator,
+    template: accumulator.template + currentString + (args[index] || ""),
+  });
+
 /**
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
  *
@@ -32,18 +49,13 @@ type DOMElement = {
  */
 const createElement =
   (tagName: string) =>
-  (strings: TemplateStringsArray, ...args: Array<String>): DOMElement => ({
-    type: "element",
-    template: h(
-      tagName,
-      {},
-      strings.reduce(
-        (accumulator, currentString, index) =>
-          accumulator + currentString + (args[index] || ""),
-        ""
-      )
-    ),
-  });
+  (strings: TemplateStringsArray, ...args: Array<String>): DOMElement => {
+    const { template } = strings.reduce(createReducer(args), initialState);
+    return {
+      type: "element",
+      template: h(tagName, {}, template),
+    };
+  };
 
 export const div = createElement("div");
 export const p = createElement("p");
