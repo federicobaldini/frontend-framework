@@ -13,9 +13,9 @@ type LiteralArgument =
     }
   | string;
 
-// Extract initial value with a template key, some other will appear next ;)
-const initialState: { template: string } = {
+const initialState: { template: string; on: object } = {
   template: "",
+  on: {}, // This initial state property will be helpful to manage event handlers in template literals
 };
 
 // Extract this outside the createElement function
