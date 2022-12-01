@@ -13,9 +13,9 @@ type LiteralArgument =
     }
   | string;
 
-const initialState: { template: string; on: object } = {
+const initialState: { template: string; on: { click: () => void } } = {
   template: "",
-  on: {}, // This initial state property will be helpful to manage event handlers in template literals
+  on: { click: () => {} }, // This initial state property will be helpful to manage event handlers in template literals
 };
 
 const createReducer =
@@ -31,6 +31,7 @@ const createReducer =
     return {
       ...accumulator,
       template: accumulator.template + currentString + (args[index] || ""),
+      on: { click: () => {} },
     };
   };
 
