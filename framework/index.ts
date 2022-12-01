@@ -1,4 +1,4 @@
-import { VNode } from "snabbdom";
+import { VNode, eventListenersModule } from "snabbdom";
 import * as snabbdom from "snabbdom";
 
 type DOMElement = {
@@ -7,7 +7,7 @@ type DOMElement = {
 };
 
 // Snabbdom can now manage each dom operation for me.
-const patch = snabbdom.init([]);
+const patch = snabbdom.init([eventListenersModule]);
 
 export const init = (selector: string, component: DOMElement) => {
   const app: Element | null = document.querySelector(selector);
