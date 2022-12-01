@@ -6,6 +6,13 @@ type DOMElement = {
   template: VNode;
 };
 
+type LiteralArgument =
+  | {
+      type: string;
+      click: () => void;
+    }
+  | string;
+
 // Extract initial value with a template key, some other will appear next ;)
 const initialState: { template: string } = {
   template: "",
