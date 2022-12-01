@@ -18,17 +18,21 @@ const initialState: { template: string; on: object } = {
   on: {}, // This initial state property will be helpful to manage event handlers in template literals
 };
 
-// Extract this outside the createElement function
 const createReducer =
-  (args: Array<String>) =>
-  (
-    accumulator: { template: string },
-    currentString: string,
-    index: number
-  ) => ({
-    ...accumulator,
-    template: accumulator.template + currentString + (args[index] || ""),
-  });
+  (args: Array<LiteralArgument>) =>
+  (accumulator: { template: string }, currentString: string, index: number) => {
+    const currentArg: LiteralArgument = args[index];
+
+    // Here, it's defined the behavior of an event node and this is where the type is important
+    if (typeof currentArg === "object" && currentArg.type === "event") {
+      return { ...accumulator, on: { click: currentArg.click } };
+    }
+
+    return {
+      ...accumulator,
+      template: accumulator.template + currentString + (args[index] || ""),
+    };
+  };
 
 /**
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
