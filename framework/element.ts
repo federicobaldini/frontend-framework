@@ -61,11 +61,15 @@ const createReducer =
  */
 const createElement =
   (tagName: string) =>
-  (strings: TemplateStringsArray, ...args: Array<String>): DOMElement => {
-    const { template } = strings.reduce(createReducer(args), initialState);
+  (
+    strings: TemplateStringsArray,
+    ...args: Array<LiteralArgument>
+  ): DOMElement => {
+    const { template, on } = strings.reduce(createReducer(args), initialState);
+
     return {
       type: "element",
-      template: h(tagName, {}, template),
+      template: h(tagName, { on }, template), // the second argument concerns attributes, properties and events
     };
   };
 
