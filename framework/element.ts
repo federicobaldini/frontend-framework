@@ -31,7 +31,6 @@ const createReducer =
     return {
       ...accumulator,
       template: accumulator.template + currentString + (args[index] || ""),
-      on: { click: () => {} },
     };
   };
 
@@ -56,8 +55,6 @@ const createReducer =
  * Added a VDOM in the framework so that it will apply DOM modifications only if necessary.
  *
  * The choosen VDOM is snabbdom: https://github.com/snabbdom/snabbdom
- * @param tagName
- * @returns DOMElement
  */
 const createElement =
   (tagName: string) =>
