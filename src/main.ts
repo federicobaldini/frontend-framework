@@ -1,11 +1,9 @@
 import { init } from "../framework";
-import { div } from "../framework/element";
-import { onClick } from "../framework/event";
+import { User } from "./user";
 
 const firstName = "Federico";
 const lastName = "Baldini";
 
-const user = (firstName: string, lastName: string) =>
-  div`${onClick(async () => alert(firstName))} Hello ${firstName} ${lastName}`;
+console.log({ firstName, lastName });
 
-init("#app", user(firstName, lastName));
+init("#app", User({ firstName, lastName }));
