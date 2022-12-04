@@ -62,7 +62,13 @@ const createElement =
     strings: TemplateStringsArray,
     ...args: Array<LiteralArgument>
   ): DOMElement => {
-    const { template, on } = strings.reduce(createReducer(args), initialState);
+    const reducedLiterals = strings.reduce(createReducer(args), initialState);
+
+    const template = reducedLiterals.template;
+    let on: { click: () => void } = { click: () => {} };
+    if ("on" in reducedLiterals) {
+      on = reducedLiterals.on;
+    }
 
     return {
       type: "element",
