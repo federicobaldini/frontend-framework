@@ -9,7 +9,9 @@ type DOMElement = {
 // Snabbdom can now manage each dom operation for me.
 const patch = snabbdom.init([eventListenersModule]);
 
-export const init = (selector: string, component: DOMElement) => {
+let state = {};
+
+export const init = (selector: string, component: { template: VNode }) => {
   const app: Element | null = document.querySelector(selector);
   if (app) {
     patch(app, component.template);
