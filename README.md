@@ -1,6 +1,6 @@
 # frontend-framework
 
-A web application that contains a JavaScript framework for building user interfaces (similar to React) made by me, that provides a proof of concept of it, using TypeScript.
+A web application that contains a JavaScript framework for building user interfaces (similar to React), that provides a proof of concept of it, using TypeScript.
 
 Credit: https://mfrachet.github.io/create-frontend-framework/
 
